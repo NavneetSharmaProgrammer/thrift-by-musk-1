@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-g" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thrift by Musk - Curated Vintage & Pre-Loved Fashion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+      html {
+        scroll-padding-top: 80px; /* Offset for sticky header */
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #FDFCFB;
+        color: #3D3D3D;
+      }
+      .font-serif {
+        font-family: 'Playfair Display', serif;
+      }
+       .btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            text-align: center;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            transition-property: transform, background-color, color, opacity, box-shadow;
+            transition-duration: 300ms;
+            transition-timing-function: ease-in-out;
+        }
+        .btn:active {
+            transform: scale(0.98) !important;
+            opacity: 0.9;
+        }
+        .btn-primary {
+            background-color: #8B5E34;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #7a522d;
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(139, 94, 52, 0.2);
+        }
+        .btn-primary:disabled {
+            background-color: #a8a29e;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid #8B5E34;
+            color: #8B5E34;
+        }
+        .btn-secondary:hover {
+            background-color: #8B5E34;
+            color: white;
+            transform: scale(1.05);
+        }
+        @keyframes pulse {
+          50% {
+            background-color: #e7e5e4;
+          }
+        }
+        .product-card-image-container {
+            position: relative;
+            width: 100%;
+            padding-top: 125%; /* 4:5 Aspect Ratio */
+            overflow: hidden;
+            background-color: #f5f5f4; /* Placeholder color */
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .product-card-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+        }
+        .product-card .back {
+            opacity: 0;
+        }
+        .product-card:hover .back {
+            opacity: 1;
+        }
+        .product-card:hover .product-card-image {
+            transform: scale(1.05);
+        }
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fade-in 0.5s ease-out forwards;
+        }
+
+        /* Reveal on scroll animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .sold-out-ribbon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+        .sold-out-ribbon span {
+            background-color: #b91c1c;
+            color: white;
+            padding: 8px 120px;
+            font-weight: bold;
+            font-size: 1.25rem;
+            text-transform: uppercase;
+            transform: rotate(-20deg);
+            border: 2px solid white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            letter-spacing: 0.1em;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .hero-shape {
+            position: absolute;
+            border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%;
+            animation: float 12s ease-in-out infinite;
+            z-index: 0;
+        }
+        /* Accessibility Focus Ring */
+        *:focus-visible {
+            outline: 3px solid #7a522d;
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+        /* Custom Checkbox styles */
+        .custom-checkbox {
+            appearance: none;
+            background-color: #fff;
+            margin: 0;
+            font: inherit;
+            color: currentColor;
+            width: 1.15em;
+            height: 1.15em;
+            border: 0.15em solid currentColor;
+            border-radius: 0.15em;
+            transform: translateY(-0.075em);
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+        }
+        .custom-checkbox::before {
+            content: "";
+            width: 0.65em;
+            height: 0.65em;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em #8B5E34;
+            transform-origin: bottom left;
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+        .custom-checkbox:checked::before {
+            transform: scale(1);
+        }
+        .custom-checkbox:checked {
+            border-color: #8B5E34;
+        }
+
+        /* Countdown Timer Styles */
+        .countdown-box {
+            text-align: center;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            min-width: 60px;
+        }
+        .countdown-box span {
+            display: block;
+        }
+
+        /* Instagram Feed Styles */
+        .instagram-image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            aspect-ratio: 1 / 1;
+        }
+
+        .instagram-image-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .instagram-image-container:hover .instagram-image-overlay {
+            opacity: 1;
+        }
+
+        .instagram-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .instagram-image-container:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* Filter Count Badge */
+        .filter-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 9999px;
+            background-color: #8B5E34;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        /* Toast Notification Styles */
+        .toast-notification {
+            position: fixed;
+            bottom: 1.25rem;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            background-color: #3D3D3D;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+
+        /* Aspect Ratio for video embeds */
+        .aspect-video {
+            position: relative;
+            padding-top: 56.25%; /* 16:9 ratio */
+        }
+        .aspect-video > iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Product Detail Page Gallery Styles */
+        .main-image-container {
+            aspect-ratio: 4 / 5;
+            background-color: #f5f5f4;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            position: relative;
+        }
+        .main-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .thumbnail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 0.5rem;
+        }
+        .thumbnail-button {
+            aspect-ratio: 1 / 1;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s ease-in-out;
+            opacity: 0.8;
+        }
+        .thumbnail-button:hover {
+            opacity: 1;
+        }
+        .thumbnail-button.active {
+            border-color: #8B5E34;
+            opacity: 1;
+        }
+        .thumbnail-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.9.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.7.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="antialiased">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
