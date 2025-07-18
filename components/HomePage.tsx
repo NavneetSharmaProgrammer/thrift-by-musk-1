@@ -96,8 +96,8 @@ const HomePage: React.FC = () => {
   const { launchDate, isDropLive } = useDrop();
 
   const owners = [
-    { name: '@thatskinny.model', link: 'https://www.instagram.com/thatskinny.model/', image: 'https://picsum.photos/seed/owner1/200' },
-    { name: '@beinggauravbisht', link: 'https://www.instagram.com/beinggauravbisht/', image: 'https://picsum.photos/seed/owner2/200' },
+    { name: '@thatskinny.model', link: 'https://www.instagram.com/thatskinny.model/', image: 'https://drive.google.com/file/d/178dweUolYdMxC2y7AZsQkYYzDizjUxtQ/view?usp=drive_link' },
+    { name: '@beinggauravbisht', link: 'https://www.instagram.com/beinggauravbisht/', image: 'https://drive.google.com/file/d/1l7lBKM3K-jeetkSO_GmjANdgg-SGK14H/view?usp=drive_link' },
     { name: '@priyanka_bisht72200', link: 'https://www.instagram.com/priyanka_bisht72200/', image: 'https://picsum.photos/seed/owner3/200' },
   ];
   
