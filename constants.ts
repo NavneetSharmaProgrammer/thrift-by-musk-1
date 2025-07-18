@@ -6,7 +6,7 @@ import { Product, GalleryItem } from './types.ts';
  * Products marked with `isUpcoming: true` will automatically go live at this time.
  * Example: '2024-12-25T13:30:00.000Z' for Christmas Day at 7 PM IST.
  */
-export const launchDate = '2025-07-20T13:30:00.000Z';
+export const launchDate = '2025-07-25T12:00:00.000Z';
 
 /**
  * INSTRUCTIONS FOR ADDING PRODUCTS:
